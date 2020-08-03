@@ -1,0 +1,48 @@
+import Cocoa
+
+var str = "Hello, playground";
+print(str)
+
+//注释
+/*多行
+ /*嵌套*/
+  注释*/
+let `class` = "RunDome"
+print(`class`)
+
+let a = 3+4
+let b = 2 + 3
+let c=1 + 2
+for x in 0...9{
+    print("\(x)",terminator:"  ")
+}
+print()
+let theInput = readLine()
+
+let constA = 42
+print(constA)
+let constB: Float = 3.1415926
+print(constB)
+let _const = "Hello Swift!"
+print(_const)
+let 你好 = "你好啊"
+print(你好)
+
+let name = "教程"
+let site = "http://www.runoob.com"
+print("\(name)的网址是:\(site)")
+
+let decimalInteger = 17               //十进制
+let binaryInteger = 0b10001           //二进制
+let octalInteger = 0o21               //八进制
+let hexadecimalInteger = 0x11         //十六进制
+
+let stringl = "hello\tworld\n\r教程网址是：\'http://www.runoob.com\'"
+print(stringl)
+print("长度为 \(stringl.count)")
+
+var A = 10
+var B = 20
+A += 1
+B -= 2
+

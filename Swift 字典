@@ -1,0 +1,37 @@
+import Cocoa
+
+//字典
+var someDict1 = [Int:String]()
+var someDict2:[Int:String] = [1:"one",2:"two",3:"three"]
+var someVar = someDict2[2]
+print("key = 2 的值为 \(someVar!)")
+print("key = 1 的值为 \(someDict2[1]!)")
+
+var oldVal = someDict2.updateValue("one too", forKey: 1)
+someVar = someDict2[1]
+print("key = 1 旧值 \(oldVal!)")
+print("key = 1 的值 \(someVar!)")
+
+//var removeValue = someDict2.removeValue(forKey: 2)    //移除
+//someDict2[2] = nil
+print("key = 1 的值为 \(someDict2[1]!)")
+print("key = 2 的值为 \(someDict2[2] )")
+print("key = 3 的值为 \(someDict2[3]!)")
+//遍历
+for (_,value) in someDict2.enumerated() {
+    print("字典 \(value)")
+}
+//转化为数组
+let dictKeys = [Int](someDict2.keys)
+let dictValues = [String](someDict2.values)
+print("输出字典的key")
+for (key) in dictKeys {
+    print ("\(key)")
+}
+print("输出字典的value")
+for (value) in dictValues {
+    print("\(value)")
+}
+
+print("someDict2 有 \(someDict2.count)个键数对")
+

@@ -1,0 +1,175 @@
+import Cocoa
+
+var str = "Hello, playground";
+print(str)
+
+//注释
+/*多行
+ /*嵌套*/
+  注释*/
+let `class` = "RunDome"
+print(`class`)
+
+let a = 3+4
+let b = 2 + 3
+let c=1 + 2
+for x in 0...9{
+    print("\(x)",terminator:"  ")
+}
+print()
+let theInput = readLine()
+
+let constA = 42
+print(constA)
+let constB: Float = 3.1415926
+print(constB)
+let _const = "Hello Swift!"
+print(_const)
+let 你好 = "你好啊"
+print(你好)
+
+let name = "教程"
+let site = "http://www.runoob.com"
+print("\(name)的网址是:\(site)")
+
+let decimalInteger = 17               //十进制
+let binaryInteger = 0b10001           //二进制
+let octalInteger = 0o21               //八进制
+let hexadecimalInteger = 0x11         //十六进制
+
+let stringl = "hello\tworld\n\r教程网址是：\'http://www.runoob.com\'"
+print(stringl)
+print("长度为 \(stringl.count)")
+
+var A = 10
+var B = 20
+A += 1
+B -= 2
+
+var index = 50
+switch index {
+case 10:
+    print("index = 10")
+case 50:
+    print("index = 50")
+    fallthrough
+case 100,200:
+    print("index = 100 or index = 200")
+    fallthrough
+default:
+    print("no")
+}
+
+var someInt:[Int] = [10,20,30,40,50]
+for x in someInt {
+    print("x=\(x)",terminator:" ")
+}
+
+var index1 = 10
+repeat{
+    print("index1 = \(index1)")
+    index1 += 1
+}while index1 < 20
+
+var stringA = String("Hello ")
+print(stringA)
+
+var varA = 20
+let conA = 10
+var varC:Float = 20.0
+var string2 = "\(varA)乘以\(conA)等于\(varC * 10)"
+print (string2)
+
+let char1:Character = "A"
+
+for ch in "Runoob" {
+    print (ch)
+}
+
+stringA.append(char1)
+print(stringA)
+
+var someInts = [Int](repeating: 0, count: 3)
+var someInts1:[Int] = [1,2,3]
+print("第二个元素 \(someInts1[1])")
+var someInts2 = [Int]()
+someInts2.append(10)
+someInts1[1] = 20
+print("第二个元素 \(someInts1[1])")
+
+for (index2, item2) in someInts1.enumerated() {
+    print("第\(index2)位为\(item2)")
+}
+var someInts3 = someInts + someInts1
+for item in someInts3 {
+    print(item)
+}
+print("someInts3元素个数\(someInts3.count)")
+
+//字典
+var someDict1 = [Int:String]()
+var someDict2:[Int:String] = [1:"one",2:"two",3:"three"]
+var someVar = someDict2[2]
+print("key = 2 的值为 \(someVar!)")
+print("key = 1 的值为 \(someDict2[1]!)")
+
+var oldVal = someDict2.updateValue("one too", forKey: 1)
+someVar = someDict2[1]
+print("key = 1 旧值 \(oldVal!)")
+print("key = 1 的值 \(someVar!)")
+
+//var removeValue = someDict2.removeValue(forKey: 2)    //移除
+//someDict2[2] = nil
+print("key = 1 的值为 \(someDict2[1]!)")
+print("key = 2 的值为 \(someDict2[2] )")
+print("key = 3 的值为 \(someDict2[3]!)")
+//遍历
+for (_,value) in someDict2.enumerated() {
+    print("字典 \(value)")
+}
+//转化为数组
+let dictKeys = [Int](someDict2.keys)
+let dictValues = [String](someDict2.values)
+print("输出字典的key")
+for (key) in dictKeys {
+    print ("\(key)")
+}
+print("输出字典的value")
+for (value) in dictValues {
+    print("\(value)")
+}
+
+print("someDict2 有 \(someDict2.count)个键数对")
+
+//函数
+func hello(name: String,site:String) ->String {
+    return name + site
+}
+print(hello(name: "Hello: ", site: "www.Hello.com"))
+print(hello(name: "World: ", site: "www.World.com"))
+
+func minMax(array: [Int]) -> (min: Int, max: Int )? {          //？表示值可选，可为nil
+    var currentMin = array[0]
+    var currentMax = array[0]
+    for value in array[1..<array.count] {
+        if value < currentMin {
+            currentMin = value
+        }else{
+            currentMax = value
+        }
+    }
+    return (currentMin,currentMax)
+}
+if let bounds = minMax(array: [1,3,-4,5,2,7,9,-5,44,-49,88]) {
+    print("最小值为 \(bounds.min) , 最大值为 \(bounds.max)")
+}
+
+func swap(_ a: inout Int,_ b: inout Int ) {
+    let temp = a
+    a = b
+    b = temp
+}
+var x=1
+var y=10
+swap(&x, &y)
+print("x=\(x),y=\(y)")

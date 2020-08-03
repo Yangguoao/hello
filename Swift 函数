@@ -1,0 +1,34 @@
+
+
+//函数
+func hello(name: String,site:String) ->String {
+    return name + site
+}
+print(hello(name: "Hello: ", site: "www.Hello.com"))
+print(hello(name: "World: ", site: "www.World.com"))
+
+func minMax(array: [Int]) -> (min: Int, max: Int )? {          //？ 可选
+    var currentMin = array[0]
+    var currentMax = array[0]
+    for value in array[1..<array.count] {
+        if value < currentMin {
+            currentMin = value
+        }else{
+            currentMax = value
+        }
+    }
+    return (currentMin,currentMax)
+}
+if let bounds = minMax(array: [1,3,-4,5,2,7,9,-5,44,-49,88]) {
+    print("最小值为 \(bounds.min) , 最大值为 \(bounds.max)")
+}
+
+func swap(_ a: inout Int,_ b: inout Int ) {
+    let temp = a
+    a = b
+    b = temp
+}
+var x=1
+var y=10
+swap(&x, &y)
+print("x=\(x),y=\(y)")

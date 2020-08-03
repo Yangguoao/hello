@@ -1,0 +1,64 @@
+import Cocoa
+
+//条件语句
+var index = 50
+switch index {
+case 10:
+    print("index = 10")
+case 50:
+    print("index = 50")
+    fallthrough
+case 100,200:
+    print("index = 100 or index = 200")
+    fallthrough
+default:
+    print("no")
+}
+//循环
+var someInt:[Int] = [10,20,30,40,50]
+for x in someInt {
+    print("x=\(x)",terminator:" ")
+}
+
+var index1 = 10
+repeat{
+    print("index1 = \(index1)")
+    index1 += 1
+}while index1 < 20
+
+//字符串
+var stringA = String("Hello ")
+print(stringA)
+
+var varA = 20
+let conA = 10
+var varC:Float = 20.0
+var string2 = "\(varA)乘以\(conA)等于\(varC * 10)"
+print (string2)
+
+let char1:Character = "A"
+
+for ch in "Runoob" {
+    print (ch)
+}
+
+stringA.append(char1)
+print(stringA)
+
+var someInts = [Int](repeating: 0, count: 3)
+var someInts1:[Int] = [1,2,3]
+print("第二个元素 \(someInts1[1])")
+var someInts2 = [Int]()
+someInts2.append(10)
+someInts1[1] = 20
+print("第二个元素 \(someInts1[1])")
+
+for (index2, item2) in someInts1.enumerated() {
+    print("第\(index2)位为\(item2)")
+}
+var someInts3 = someInts + someInts1
+for item in someInts3 {
+    print(item)
+}
+print("someInts3元素个数\(someInts3.count)")
+

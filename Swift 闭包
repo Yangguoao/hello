@@ -1,0 +1,60 @@
+import Cocoa
+//闭包
+/*接收参数并返回指定类型
+ {(parameters) -> return type in
+     statements
+   }                     */
+let studname = { print("闭包实例")}
+studname()
+
+/*接收两个参数并a返回bool值
+ {(Int,Int) -> Bool in
+    Statement1
+    Statement 2
+     ---
+    Statement n
+ }                      */
+let divide = {(val1: Int,val2: Int) -> Int in
+    return val1 / val2
+}
+let result = divide(222,2)
+print(result)
+
+//sorted方法
+let names = ["AT","AE","D","R","BT"]
+// 使用普通函数提供排序功能,闭包函数类型需为(String, String) -> Bool。
+func backwards(s1: String, s2: String) -> Bool {
+    return s1 > s2
+}
+var reversed = names.sorted(by: backwards)
+print(reversed)
+
+//参数名称缩写
+var reversed2 = names.sorted( by: { $0 > $1 })
+print(reversed2)
+
+//运算符函数
+var reversed3 = names.sorted(by: >)
+print(reversed3)
+
+//尾随闭包
+var reversed4 = names.sorted() { $0 > $1 }
+print(reversed4)
+
+//捕获值
+func outfunc(forout amount: Int) -> () -> Int {
+    var total = 0
+    func infunc() -> Int {
+        total += amount
+        return total
+    }
+    return infunc
+}
+let increment = outfunc(forout: 10)
+print(increment())
+print(increment())
+print(increment())
+print(increment())
+
+let alsoIncrement = increment
+print(alsoIncrement())

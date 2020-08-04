@@ -1,0 +1,56 @@
+//结构体
+//struct MarkStruct{
+//    var mark1: Int
+//    var mark2: Int
+//    var mark3: Int
+//}
+import Cocoa
+
+struct studentMarks {
+    var marks1 = 99
+    var marks2 = 98
+    var marks3 = 97
+}
+let marks = studentMarks()     //结构体实例化使用 let
+print("Mark1 = \(marks.marks1)")
+print("Mark2 = \(marks.marks2)")
+print("Mark3 = \(marks.marks3)")
+
+//通过结构体实例化时传值并克隆一个结构体
+struct MarksStruct{
+    var mark: Int
+    
+    init(mark: Int) {
+        self.mark = mark
+    }
+}
+var aStruct = MarksStruct(mark: 88)
+var bStruct = aStruct    //使用相同值的结构体
+bStruct.mark = 99
+print(aStruct.mark)
+print(bStruct.mark)
+
+//结构体应用
+struct markStruct{
+    var mark1: Int
+    var mark2: Int
+    var mark3: Int
+    
+    init(mark1: Int,mark2: Int,mark3: Int) {
+        self.mark1 = mark1
+        self.mark2 = mark2
+        self.mark3 = mark3
+    }
+}
+
+print("好成绩：")
+var good = markStruct(mark1: 99, mark2: 100, mark3: 98)
+print(good.mark1)
+print(good.mark2)
+print(good.mark3)
+
+print("坏成绩：")
+var fail = markStruct(mark1: 11, mark2: 12, mark3: 13)
+print(fail.mark1)
+print(fail.mark2)
+print(fail.mark3)

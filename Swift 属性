@@ -1,0 +1,117 @@
+//属性
+
+//储存属性
+import Cocoa
+
+struct Number
+{
+    var digits: Int
+    let pi = 3.14
+}
+
+var n = Number(digits: 123)
+n.digits = 20
+
+print("\(n.digits)")
+print("\(n.pi)")
+
+//延迟储存属性
+class sample {
+    lazy var no = numbertoo()  //延迟属性必须用‘var’
+}
+
+class numbertoo {
+    var name = "Hello"
+}
+var first = sample()
+print(first.no.name)
+
+//计算属性
+import Cocoa
+
+class sample1 {
+    var no1 = 0.0 ,no2 = 0.0      //计算属性必须用 var
+    var length = 300.0, breadth = 150.0
+    
+    var middle: (Double,Double) {
+        get{
+            return (length / 2, breadth / 2)
+        }
+        set(axis){
+            no1 = axis.0 - (length / 2)
+            no2 = axis.1 - (breadth / 2)
+        }
+    }
+}
+var result1 = sample1()
+print(result1.middle)
+result1.middle = (0.0, 10.0)
+
+print(result1.no1)
+print(result1.no2)
+
+//只读计算属性
+import Cocoa
+
+class film {
+    var head = ""
+    var duration = 0.0
+    var metaInfo: [String:String] {
+        return [
+            "head": self.head,
+            "duration":"\(self.duration)"
+        ]
+    }
+}
+ var movie = film()
+movie.head = "Hello"
+movie.duration = 3.09
+
+print(movie.metaInfo["head"]!)
+print(movie.metaInfo["duration"]!)
+
+//属性观察器
+import Cocoa
+
+class Samplepgm {
+    var counter: Int = 0 {
+        willSet(newTotal){
+            print("计数器：\(newTotal)")
+        }
+        didSet{
+            if counter > oldValue {
+                print("新增数 \(counter - oldValue) ")
+            }
+        }
+    }
+}
+let NewCounter = Samplepgm()
+NewCounter.counter = 100
+NewCounter.counter = 200
+
+//获取和设置类型属性的值
+import Cocoa
+
+struct StuMarks {
+    static let markCount = 89
+    static var totalCount = 0
+    var InternalMarks: Int = 0 {
+        didSet {
+            if InternalMarks > StuMarks.markCount {
+                InternalMarks = StuMarks.markCount
+            }
+            if InternalMarks > StuMarks.totalCount {
+                StuMarks.totalCount = InternalMarks
+            }
+        }
+    }
+}
+
+var stu1Mark1 = StuMarks()
+var stu1Mark2 = StuMarks()
+
+stu1Mark1.InternalMarks = 97
+print(stu1Mark1.InternalMarks)
+
+stu1Mark2.InternalMarks = 88
+print(stu1Mark2.InternalMarks)

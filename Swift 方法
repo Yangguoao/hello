@@ -1,0 +1,113 @@
+//方法
+import Cocoa
+
+class Counter {
+    var count = 0
+    func increment() {
+        count += 1
+    }
+    func incrementBy(amount: Int) {
+        count += amount
+    }
+    func reset() {
+        count = 0
+    }
+}
+let counter = Counter()
+print(counter.count)
+counter.increment()
+print(counter.count)
+counter.incrementBy(amount: 8)
+print(counter.count)
+counter.reset()
+print(counter.count)
+
+//局部参数和外部参数
+import Cocoa
+
+class division {
+    var countt: Int = 0
+    func _incrementBy (no1: Int, no2: Int) {
+        countt = no1 / no2
+        print(countt)
+    }
+}
+let countter = division()
+countter._incrementBy(no1: 50, no2: 5)
+countter._incrementBy(no1: 1000, no2: 20)
+
+//self属性
+import Cocoa
+
+class calculations {
+    let a : Int
+    let b : Int
+    let res : Int
+    init(a: Int, b: Int) {
+        self.a = a
+        self.b = b
+        self.res = a + b
+        print("Self.res = \(res)")
+    }
+    func tot (c: Int) -> Int {
+        return res - c
+    }
+    func result() {
+        print("结果为：\(tot(c: 10))")
+        print("结构为：\(tot(c: 20))")
+    }
+}
+
+let pri = calculations(a: 60, b: 20)
+let sum = calculations(a: 100, b: 200)
+pri.result()
+sum.result()
+
+//mutating变异方法，修改值的属性
+import Cocoa
+
+struct area {
+    var length = 1
+    var breadth = 1
+    
+    mutating func scaleBy(res: Int) {
+        self.length *= res
+        breadth *= res
+        print(length)
+        print(breadth)
+    }
+}
+var val = area(length: 5, breadth: 10)
+val.scaleBy(res: 2)
+val.scaleBy(res: 10)
+val.scaleBy(res: 20)
+
+//类型方法
+import Cocoa
+
+class Math {
+    class func abs(number: Int) -> Int {
+        if number > 0
+        {
+            return (-number)
+        }
+        else
+        {
+            return number
+        }
+    }
+}
+struct absno
+{
+    static func abs(number: Int) -> Int {
+        if number < 0 {
+            return (-number)
+        }else {
+            return number
+        }
+    }
+}
+let _no = Math.abs(number: -5)
+let _num = absno.abs(number: -15)
+print(_no)
+print(_num)

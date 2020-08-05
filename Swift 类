@@ -1,0 +1,44 @@
+//类
+import Cocoa
+
+class MarksClss {
+    var mark: Int
+    init(mark: Int) {
+        self.mark = mark
+    }
+}
+
+class studenMarks {
+    var mark = 100
+}
+let markss = studenMarks()
+print("成绩为\(markss.mark)")
+
+class stMarks {
+    var mark1 = 111
+    var mark2 = 222
+}
+let ma = stMarks()
+print("Mark1 is \(ma.mark1)")
+print("Mark2 is \(ma.mark2)")
+
+
+class SampleClass : Equatable {
+    let muProperty: String
+    init(s: String) {
+        muProperty = s
+    }
+}
+func == (lhs: SampleClass, rhs: SampleClass) -> Bool {
+        return lhs.muProperty == rhs.muProperty
+    }
+    
+let spClass1 = SampleClass(s: "Hello")
+let spClass2 = SampleClass(s: "Hello")
+
+if spClass1 === spClass2 {   //false
+    print("引用相同的类实例\(spClass1)")
+}
+if spClass1 !== spClass2 {
+    print("引用不同的类实例 \(spClass2)")
+}

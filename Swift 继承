@@ -1,0 +1,70 @@
+//继承
+class studDetails {
+    var stname: String
+    var mark1: Int
+    var mark2: Int
+    init(stname: String, mark1: Int, mark2: Int) {
+        self.stname = stname
+        self.mark1 = mark1
+        self.mark2 = mark2
+    }
+    func show() {
+        print("name:\(self.stname), mark1: \(self.mark1), mark2: \(self.mark2)")
+    }
+}
+
+class Tom : studDetails
+{
+    init()
+    {
+        super.init(stname: "tom", mark1: 97, mark2: 99)
+    }
+}
+ let tom = Tom()
+tom.show()
+
+//重写方法
+class superClass {
+    func show() {
+        print("这是父类")
+    }
+}
+class subClass: superClass {
+    override func show() {
+        print("这是子类")
+    }
+}
+let faClass = superClass()
+let suClass = subClass()
+faClass.show()
+suClass.show()
+
+//重写属性
+class Circle {
+    var radius = 12.0
+    var area: String {
+        return "矩形半径\(radius)"
+    }
+}
+class rectangle: Circle {
+    var print = 7
+    override var area: String {
+        return super.area + ",被重写为\(print)"
+    }
+}
+let rect = rectangle()
+print("Radius\(rect.area)")
+rect.radius = 20.0
+rect.print = 10
+print("Radius：\(rect.area)")
+
+class square: rectangle {
+    override var radius: Double {
+        didSet {
+            print = Int(radius/5.0)+1
+        }
+    }
+}
+let sq = square()
+sq.radius = 100.0
+print("Radius: \(sq.area)")

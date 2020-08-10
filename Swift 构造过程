@@ -1,0 +1,308 @@
+//构造过程
+import Cocoa
+
+struct _rectangle {
+    var length: Double
+    var breadth: Double
+    init() {
+        length = 6
+        breadth = 12
+    }
+}
+var area = _rectangle()
+print("矩形面积为 \(area.length*area.breadth)")
+
+//构造参数
+struct Rectangle {
+    var length: Double
+    var breadth: Double
+    var area: Double
+    
+    init(fromLength length: Double, fromBreadth breadth: Double) {
+        self.length = length
+        self.breadth = breadth
+        area = length * breadth
+    }
+    
+    init(fromLeng leng: Double, fromBread bread: Double) {
+        self.length = leng
+        self.breadth = bread
+        area = leng * bread
+    }
+}
+
+let ar = Rectangle(fromLength: 6, fromBreadth: 12)
+print("面积为: \(ar.area)")
+
+let are = Rectangle(fromLeng: 36, fromBread: 12)
+print("面积为: \(are.area)")
+
+//内部和外部参数
+struct Color {
+    let red, green, blue: Double
+    init(red: Double, green: Double, blue: Double) {
+        self.red   = red
+        self.green = green
+        self.blue  = blue
+    }
+    init(white: Double) {
+        red   = white
+        green = white
+        blue  = white
+    }
+}
+
+let magenta = Color(red: 11.0, green: 4.0, blue: 13.0)
+print("red 值为: \(magenta.red)")
+print("green 值为: \(magenta.green)")
+print("blue 值为: \(magenta.blue)")
+
+let halfGray = Color(white: 5.0)
+print("red 值为: \(halfGray.red)")
+print("green 值为: \(halfGray.green)")
+print("blue 值为: \(halfGray.blue)")
+
+//没有外部名称参数
+struct Rectangle1 {
+    var length: Double
+    
+    init(frombreadth breadth: Double) {
+        length = breadth * 10
+    }
+    
+    init(frombre bre: Double) {
+        length = bre * 30
+    }
+    //不提供外部名字
+    init(_ area: Double) {
+        length = area
+    }
+}
+
+let rectarea = Rectangle1(frombreadth: 100.0)
+print("面积为: \(rectarea.length)")
+
+let rearea = Rectangle1(frombre: 1.0)
+print("面积为: \(rearea.length)")
+
+let recarea = Rectangle1(110.0)
+print("面积为: \(recarea.length)")
+
+//可选属性类型
+struct Rectangle2 {
+    var length: Double!
+    init (frombreadth breadth: Double) {
+        length = breadth * 10
+    }
+    init (frombre bre: Double) {
+        length = bre * 20
+    }
+    init (_ area: Double) {
+        length = area
+    }
+}
+let rectarea1 = Rectangle2(180.0)
+let rec2 = Rectangle2(frombre: 50.0)
+let rec3 = Rectangle2(frombreadth: 120)
+print("面积为：\(rectarea1.length)")
+print("面积为：\(rec2.length)")
+print("面积为：\(rec3.length)")
+
+
+//构造器代理
+struct Size {
+    var width = 0.0, height = 0.0
+}
+struct Point {
+    var x = 0.0, y = 0.0
+}
+struct Rect {
+    var origin = Point()
+    var size = Size()
+    init() {}
+    init(origin: Point, size: Size) {
+        self.origin = origin
+        self.size = size
+    }
+    init(center: Point, size: Size) {
+        let originX = center.x - (size.width / 2)
+        let originY = center.y - (size.height / 2)
+        self.init(origin: Point(x: originX, y: originY), size: size)
+    }
+}
+// origin和size属性都使用定义时的默认值
+let basicRect = Rect()
+print("Size 结构体初始值: \(basicRect.size.width, basicRect.size.height) ")
+print("Rect 结构体初始值: \(basicRect.origin.x, basicRect.origin.y) ")
+
+// 将origin和size的参数值赋给对应的存储型属性
+let originRect = Rect(origin: Point(x: 2.0, y: 2.0), size: Size(width: 5.0, height: 5.0))
+print("Size 结构体初始值: \(originRect.size.width, originRect.size.height) ")
+print("Rect 结构体初始值: \(originRect.origin.x, originRect.origin.y) ")
+
+//先通过center和size的值计算出origin的坐标。
+//然后再调用init(origin:size:)构造器来将新的origin和size值赋值到对应的属性中
+let centerRect = Rect(center: Point(x: 4.0, y: 4.0),
+                    size: Size(width: 3.0, height: 3.0))
+print("Size 结构体初始值: \(centerRect.size.width, centerRect.size.height) ")
+print("Rect 结构体初始值: \(centerRect.origin.x, centerRect.origin.y) ")
+
+
+//类的继承和构造
+class mainClass {
+    var no1 : Int // 局部存储变量
+    init(no1 : Int) {
+        self.no1 = no1 // 初始化
+    }
+}
+class subClass1 : mainClass {
+    var no2 : Int // 新的子类存储变量
+    init(no1 : Int, no2 : Int) {
+        self.no2 = no2 // 初始化
+        super.init(no1:no1) // 初始化超类
+    }
+    override convenience init(no1: Int) {
+        self.init(no1: no1, no2: 0)
+    }
+}
+
+let res = mainClass(no1: 10)
+let res2 = subClass1(no1: 10, no2: 20)
+
+print("res 为: \(res.no1)")
+print("res2 为: \(res2.no1)")
+print("res2 为: \(res2.no2)")
+
+
+//构造器的继承和重载
+class SuperClass {
+    var corners = 4
+    var description: String {
+        return "\(corners) 边"
+    }
+}
+let rectangle2 = SuperClass()
+print("矩形: \(rectangle2.description)")
+
+class SubClass: SuperClass {
+    override init() {  //重载构造器
+        super.init()
+        corners = 5
+    }
+}
+
+let subClass2 = SubClass()
+print("五角型: \(subClass2.description)")
+
+
+class MainClass {
+    var name: String
+    init(name: String) {
+        self.name = name
+    }
+    convenience init() {
+        self.init(name: "[匿名]")
+    }
+}
+let main = MainClass(name: "Hello")
+print("名字为：\(main.name)")
+let main2 = MainClass()
+print("没有名字：\(main2.name)")
+
+class SubClass3: MainClass {
+    var count: Int
+    init(name: String, count: Int) {
+        self.count = count
+        super.init(name: name)
+    }
+    override convenience init(name: String) {
+        self.init(name: name, count: 1)
+    }
+}
+let sub2 = SubClass3(name: "World")
+print("名字为：\(sub2.name)")
+let sub3 = SubClass3(name: "Hello", count: 3)
+print("count = \(sub3.count)")
+
+
+//可失败构造器
+struct Animal {
+    let species: String
+    init?(species: String) {
+        if species.isEmpty {return nil }
+        self.species = species
+    }
+}
+let someCreature = Animal(species: "猫")
+if let cat = someCreature {
+    print("动物为\(cat.species)")
+}
+
+
+enum TemperatureUnit {
+    case Kelvin, Celsius, Fahrenheit
+    init?(symbol: Character) {
+        switch symbol {
+        case "K":
+            self = .Kelvin
+        case "C":
+            self = .Celsius
+        case "F":
+            self = .Fahrenheit
+        default:
+            return nil
+        }
+    }
+}
+let fahrenheitUnit = TemperatureUnit(symbol: "F")
+if fahrenheitUnit != nil {
+    print("这是一个已定义的温度单位，所以初始化成功。")
+}
+
+let unknownUnit = TemperatureUnit(symbol: "X")
+if unknownUnit == nil {
+    print("这不是一个已定义的温度单位，所以初始化失败。")
+}
+
+
+class Planet {
+    var name: String
+    init(name: String) {
+        self.name = name
+    }
+    convenience init() {
+        self.init(name: "[No Planets]")
+    }
+}
+let plName = Planet(name: "Mercury")
+print("行星的名字是: \(plName.name)")
+let noplName = Planet()
+print("没有这个名字的行星: \(noplName.name)")
+
+class planets: Planet {
+    var count: Int
+    init(name: String, count: Int) {
+        self.count = count
+        super.init(name: name)
+    }
+    override convenience init(name: String) {
+        self.init(name: name, count: 1)
+    }
+}
+
+
+struct StudRecord {
+    let stname: String
+    init!(stname: String) {
+        if stname.isEmpty {return nil}
+        self.stname = stname
+    }
+}
+let stmark = StudRecord(stname: "Run")
+if let _bname = stmark {
+    print("指定了学生名")
+}
+let blankname = StudRecord(stname: "")
+if blankname == nil {
+    print("学生名为空")
+}

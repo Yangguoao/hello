@@ -1,0 +1,15 @@
+//析构过程
+var counter1 = 0
+class BaseClass {
+    init() {
+        counter1 += 1;
+    }
+    deinit {
+        counter1 -= 1;
+    }
+}
+var show: BaseClass? = BaseClass()
+print(counter1)
+show = nil
+print(counter1)
+print(counter1)

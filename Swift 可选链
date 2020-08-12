@@ -1,0 +1,118 @@
+//可选链
+
+import Cocoa
+
+class person {
+    var residence: residence?
+}
+class residence {
+    var numberOfRooms = 1
+}
+let john = person()
+
+//let roomCount = john.residence!.numberOfRooms
+//将导致运行错误
+
+if let roomCount = john.residence?.numberOfRooms {
+    print("John 的房间号为 \(roomCount)")
+} else {
+    print("不能查看房间号")
+}
+
+//为可选链定义模型类
+class Person {
+    var residence1: Residence?
+}
+class Residence {
+    var rooms = [Room]()
+    var numberofRooms: Int {
+        return rooms.count
+    }
+    subscript(i: Int) -> Room {
+        return rooms[i]
+    }
+    func printNumberofRooms() {
+        print("房间号为 \(numberofRooms)")
+    }
+    var address: Address?
+}
+class Room {
+    let name: String
+    init(name: String) {
+        self.name = name
+    }
+}
+class Address {
+    var buildingName: String?
+    var buildingNumber: String?
+    var street: String?
+    func buildingIdentifier() -> String? {
+        if (buildingName != nil) {
+            return buildingName
+        } else if (buildingNumber != nil) {
+            return buildingNumber
+        } else {
+            return nil
+        }
+    }
+}
+
+let john1 = Person()
+if((john1.residence1?.printNumberofRooms()) != nil) {
+    print("输出房间号")
+} else {
+    print("无法输出房间号")
+}
+
+//调用下标脚本
+let john2 = Person()
+if let firstRoomName = john2.residence1?[0].name {
+    print("第一个房间名 \(firstRoomName).")
+} else {
+    print("无法检索到房间")
+}
+
+let john3 = Person()
+let johnsHouse = Residence()
+johnsHouse.rooms.append(Room(name: "客厅"))
+johnsHouse.rooms.append(Room(name: "厨房"))
+john3.residence1 = johnsHouse
+
+let johnsAddress = Address()
+johnsAddress.buildingName = "The Larches"
+johnsAddress.street = "Laurel Street"
+john3.residence1!.address = johnsAddress
+
+if let johnsStreet = john3.residence1?.address?.street {
+    print("John 所在的街道是 \(johnsStreet)。")
+} else {
+    print("无法检索到地址。 ")
+}
+
+if let firstRoomName = john3.residence1?[0].name {
+    print("第一个房间名为\(firstRoomName)")
+} else {
+    print("无法检索到房间")
+}
+
+let john4 = Person()
+
+if let johnsStreet = john4.residence1?.address?.street {
+    print("John 的地址为 \(johnsStreet).")
+} else {
+    print("不能检索地址")
+}
+
+
+let john5 = Person()
+
+let johnsHouse1 = Residence()
+johnsHouse1.rooms.append(Room(name: "客厅"))
+johnsHouse1.rooms.append(Room(name: "厨房"))
+john5.residence1 = johnsHouse
+
+if let firstRoomName = john5.residence1?[0].name {
+    print("第一个房间是\(firstRoomName)")
+} else {
+    print("无法检索房间")
+}

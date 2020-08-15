@@ -1,0 +1,273 @@
+//协议
+protocol classa {
+    var marks: Int { get set }
+    var result: Bool { get }
+    func attendance() -> String
+    func markssecured() -> String
+}
+protocol classb: classa {
+    var present: Bool { get set }
+    var subject: String { get set }
+    var stname: String { get set }
+}
+class classc: classb {
+    var marks = 96
+    let result = true
+    var present = false
+    var subject = "Swift 协议"
+    var stname = "Protocols"
+    func attendance() -> String {
+        return "attendance()"
+    }
+    func markssecured() -> String {
+        return "markssecured"
+    }
+}
+let studdet = classc()
+studdet.markssecured()
+print(studdet.marks)
+print(studdet.result)
+print(studdet.present)
+print(studdet.subject)
+print(studdet.stname)
+
+
+protocol daysofaweek {
+    mutating func show()
+}
+enum days: daysofaweek {
+    case sun, tue, mon, wed, thurs, fri, sat
+    mutating func show() {
+        switch self {
+        case .sun:
+            self = .sun
+            print("Sunday")
+        case .mon:
+            self = .mon
+            print("Monday")
+        case .tue:
+            self = .tue
+            print("Tuesday")
+        case .wed:
+            self = .wed
+            print("Wednesday")
+        case .thurs:
+            self = .thurs
+            print("Wednesday")
+        case .fri:
+            self = .fri
+            print("Wednesday")
+        case .sat:
+            self = .sat
+            print("Saturday")
+        default:
+            print("No")
+        }
+    }
+}
+var res = days.wed
+res.show()
+
+protocol tcpprotocol {
+    init(no1: Int)
+}
+class mainClass {
+    var no1: Int
+    init(no1: Int) {
+        self.no1 = no1
+    }
+}
+class subClass: mainClass,tcpprotocol {
+    var no2: Int
+    init(no1: Int, no2: Int) {
+        self.no2 = no2
+        super.init(no1:no1)
+    }
+    // 因为遵循协议，需要加上"required"; 因为继承自父类，需要加上"override"
+    required  override convenience init(no1: Int) {
+        self.init(no1: no1, no2: 0)
+    }
+}
+let rest = mainClass(no1: 20)
+let show = subClass(no1: 30, no2: 50)
+print("res is: \(rest.no1)")
+print("res is: \(show.no1)")
+print("res is: \(show.no2)")
+
+protocol Generator {
+    associatedtype members
+    func next() -> members?
+}
+var items = [10,20,30].makeIterator()
+while let x = items.next() {
+    print(x)
+}
+for lists in [1,2,3].map( {i in i*5}) {
+    print(lists)
+}
+
+print([100,200,300])
+print([1,2,3].map({i in i*10}))
+
+
+protocol AgeClasificationProtocol {
+    var age: Int { get }
+    func agetype() -> String
+}
+class Person1 {
+    let firstname: String
+    let lastname: String
+    var age: Int
+    init(firstname: String, lastname: String) {
+        self.firstname = firstname
+        self.lastname = lastname
+        self.age = 10
+    }
+}
+extension Person1 : AgeClasificationProtocol {
+    func fullname() -> String {
+        var c: String
+        c = firstname + " " + lastname
+        return c
+    }
+    func agetype() -> String {
+        switch age {
+        case 0...2:
+            return "Baby"
+        case 2...12:
+            return "Child"
+        case 13...19:
+            return "Teenager"
+        case let x where x > 65:
+            return "Elderly"
+        default:
+            return "Normal"
+        }
+    }
+}
+
+//协议的继承
+protocol classA {
+    var no01: Int { get set }
+    func calc(sum: Int)
+}
+protocol Result {
+    func print(target: classA)
+}
+class Student2: Result {
+    func print(target: classA) {
+        target.calc(sum: 1)
+    }
+}
+class classB: Result {
+    func print(target: classA) {
+        target.calc(sum: 5)
+    }
+}
+class StudentA: classA {
+    var no01: Int = 10
+    func calc(sum: Int) {
+        no01 -= sum
+        print("学生\(sum)次通过")
+        if no01 <= 0 {
+            print("学生缺席考试")
+        }
+    }
+}
+class Player {
+    var stmark: Result!
+    init(stmark: Result) {
+        self.stmark = stmark
+    }
+    func print(target: classA) {
+        stmark.print(target: target)
+    }
+}
+var marks = Player(stmark: Student2())
+var marksec = StudentA()
+marks.print(target: marksec)
+marks.print(target: marksec)
+marks.print(target: marksec)
+marks.stmark = classB()
+marks.print(target: marksec)
+marks.print(target: marksec)
+marks.print(target: marksec)
+
+
+//类专属协议
+protocol TcpProtocol {
+    init(no1: Int)
+}
+class MainClass {
+    var no1: Int
+    init(no1: Int) {
+        self.no1 = no1
+    }
+}
+class SubClass: MainClass, TcpProtocol {
+    var no2: Int
+    init(no1: Int, no2: Int) {
+        self.no2 = no2
+        super.init(no1: no1)
+    }
+    required override convenience init(no1: Int) {
+        self.init(no1: no1, no2: 0)
+    }
+}
+let res1 = MainClass(no1: 20)
+let show1 = SubClass(no1: 30, no2: 50)
+print("res is: \(res1.no1)")
+print("res is: \(show1.no1)")
+print("res is: \(show1.no2)")
+
+
+//协议合成
+protocol Stname {
+    var name: String { get }
+}
+protocol Stage {
+    var age: Int { get }
+}
+struct Person01: Stname, Stage {
+    var name: String
+    var age: Int
+}
+//func show(celebrator: Stname & Stage) {
+//    print("\(celebrator.name) is \(celebrator.age) years old")
+//}
+let studname = Person01(name: "y", age: 21)
+print(studname)
+let stud2 = Person01(name: "g", age: 20)
+print(stud2)
+
+
+//检验协议的一致性
+protocol HasArea {
+    var area: Double { get }
+}
+class Circle: HasArea {
+    let pi = 3.1415
+    var radius: Double
+    var area: Double { return pi * radius * radius }
+    init(radius:Double) { self.radius = radius }
+}
+class Country: HasArea {
+    var area: Double
+    init(area: Double) { self.area = area }
+}
+class Animal {
+    var legs: Int
+    init(legs: Int) { self.legs = legs }
+}
+let objects: [AnyObject] = [
+    Circle(radius: 2.0),
+    Country(area: 888_243_610),
+    Animal(legs:4)
+]
+for object in objects {
+    if let objectWithArea = object as? HasArea {
+        print("面积为：\(objectWithArea.area)")
+    } else {
+        print("没有面积")
+    }
+}

@@ -1,0 +1,122 @@
+//泛型
+import Cocoa
+func swapValues<T>(_ a: inout T, _ b: inout T) {
+    let temporaryA = a
+    a = b
+    b = temporaryA
+}
+var numb1 = 10
+var numb2 = 1000
+print("交换前：\(numb1)和\(numb2)")
+swapValues(&numb1, &numb2)
+print("交换后：\(numb1)和\(numb2)")
+
+var Str1 = "A"
+var Str2 = "B"
+print("交换前：\(Str1)和\(Str2)")
+swapValues(&Str1, &Str2)
+print("交换后：\(Str1)和\(Str2)")
+
+//泛型的栈
+struct Stack<Element> {
+    var items = [Element]()
+    mutating func push(_ item: Element) {
+        items.append(item)
+    }
+    mutating func pop() -> Element {
+        return items.removeLast()
+    }
+}
+var stackStrs = Stack<String>()
+print("字符串元素入栈：")
+stackStrs.push("Hello")
+stackStrs.push("World")
+print(stackStrs.items)
+let deletetos = stackStrs.pop()
+print("出栈元素：" + deletetos)
+var stackInts = Stack<Int>()
+print(stackStrs.items)
+print("整数元素入栈：")
+stackInts.push(1)
+stackInts.push(5)
+print(stackInts.items)
+
+//扩展泛型类型
+extension Stack {
+    var topItem: Element? {
+        return items.isEmpty ? nil : items[items.count - 1]
+    }
+}
+stackStrs.push("second")
+print(stackStrs.items)
+if let topItem = stackStrs.topItem {
+    print("栈顶元素：\(topItem)")
+}
+
+//类型约束
+func findIndex(ofString valueToFind: String, in array: [String]) -> Int? {
+    for (index, value) in array.enumerated() {
+        if value == valueToFind {
+            return index
+        }
+    }
+    return nil
+}
+let strings1 = ["one", "two", "three", "four", "five"]
+if let founds = findIndex(ofString: "three", in: strings1) {
+    print("three的索引是\(founds)")
+}
+
+
+//关联类
+protocol Container {
+    associatedtype ItemType
+    mutating func append(_ item: ItemType)
+    var count: Int { get }
+    subscript(i: Int) -> ItemType { get }
+}
+struct Stack1<Element>: Container {
+    var items = [Element]()
+    mutating func push(_ item: Element) {
+        return items.append(item)
+    }
+    mutating func pop() -> Element {
+        return items.removeLast()
+    }
+    mutating func append(_ item: Element) {
+        self.push(item)
+    }
+    var count: Int {
+        return items.count
+    }
+    subscript(i: Int) -> Element {
+        return items[i]
+    }
+}
+//扩展，将Array当作Container来使用
+extension Array: Container {}
+func allItemsMatch<C1: Container, C2: Container>
+    (_ someContainer: C1, _ anotherContainer: C2) -> Bool
+    where C1.ItemType == C2.ItemType, C1.ItemType: Equatable {
+        if someContainer.count != anotherContainer.count {
+            return false
+        }
+        for i in 0..<someContainer.count {
+            if someContainer[i] != anotherContainer[i] {
+                return false
+            }
+        }
+        return true
+}
+var tos = Stack1<String>()
+tos.push("one")
+tos.push("two")
+tos.push("three")
+print(tos.items)
+print(tos.count)
+var aos = ["one", "two", "three"]
+if allItemsMatch(tos, aos) {
+    print("匹配所有元素")
+} else {
+    print("元素不匹配")
+}

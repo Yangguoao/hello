@@ -1,0 +1,136 @@
+//访问控制
+
+public enum Student {
+    case Name(String)
+    case Mark(Int,Int,Int)
+}
+var studDetails = Student.Name("String")
+var studMarks = Student.Mark(100, 19, 91)
+switch studMarks {
+case .Name(let studName):
+    print("学生名： \(studName)")
+case .Mark(let Mark1, let mark2, let mark3):
+    print("学生成绩:\(Mark1),\(mark2),\(mark3)")
+}
+
+public class SuperClass {
+    fileprivate func show() {
+        print("超类")
+    }
+}
+internal class SubClass: SuperClass {
+    override internal func show() {
+        print("子类")
+    }
+}
+let sup = SuperClass()
+sup.show()
+let sub = SubClass()
+sub.show()
+
+class Samplepgm {
+    fileprivate var counter: Int = 0{
+        willSet(newTotal){
+            print("计数器：\(newTotal)")
+        }
+        didSet{
+            if counter > oldValue {
+                print("新增加数量\(counter - oldValue)")
+            }
+        }
+    }
+}
+let NewCounter = Samplepgm()
+NewCounter.counter = 100
+NewCounter.counter = 300
+
+
+class classA {
+    required init() {
+        let Aa = 10
+        print(Aa)
+    }
+}
+class classB: classA {
+    required init() {
+        let Bb = 30
+        print(Bb)
+    }
+}
+let res = classA()
+let show = classB()
+
+
+public protocol TcpProtocol1 {
+    init(no1: Int)
+}
+public class MainClass {
+    var no1: Int
+    init(no1: Int) {
+        self.no1 = no1
+    }
+}
+class SubClass1: MainClass, TcpProtocol1 {
+    var no2: Int
+    init(no1: Int, no2: Int) {
+        self.no2 = no2
+        super.init(no1: no1)
+    }
+    required override convenience init(no1: Int) {
+        self.init(no1: no1, no2: 0)
+    }
+}
+let res1 = MainClass(no1: 20)
+let show2 = SubClass1(no1: 30, no2: 50)
+print("res is:\(res1.no1)")
+print("res is:\(show2.no1)")
+print("res is:\(show2.no2)")
+
+
+public protocol Container1 {
+    associatedtype ItemType
+    mutating func append(item: ItemType)
+    var count: Int { get }
+    subscript(i: Int) -> ItemType { get }
+}
+struct Stack2<T>: Container1 {
+    var items = [T]()
+    mutating func push(item: T){
+        items.append(item)
+    }
+    mutating func pop() -> T {
+        return items.removeLast()
+    }
+    mutating func append(item: T){
+        self.push(item: item)
+    }
+    var count: Int {
+        return items.count
+    }
+    subscript(i: Int) -> T {
+        return items[i]
+    }
+}
+func allItemsMatch<
+    C1: Container1, C2: Container1>
+    (someContainer1: C1, anotherContainer1: C2) -> Bool
+    where C1.ItemType == C2.ItemType, C1.ItemType: Equatable {
+    if someContainer1.count != anotherContainer1.count {
+        return false
+    }
+    for i in 0..<someContainer1.count {
+        if someContainer1[i] != anotherContainer1[i] {
+            return false
+        }
+    }
+    return true
+}
+var tos1 = Stack2<String>()
+tos1.push(item: "Swift")
+print(tos1.items)
+tos1.push(item: "My")
+print(tos1.items)
+tos1.push(item: "Where")
+print(tos1.items)
+var eos1 = ["Swift","My","Where"]
+print(eos1)
